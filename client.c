@@ -6,7 +6,7 @@
 /*   By: zchtaibi <zchtaibi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:15:20 by zchtaibi          #+#    #+#             */
-/*   Updated: 2024/04/28 16:55:27 by zchtaibi         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:00:27 by zchtaibi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	send_string(pid_t pid_server, char *str)
 
 int	main(int ac, char **av)
 {
-	pid_t pid_server;
-	char *str;
+	pid_t	pid_server;
+	char	*str;
 
 	if (ac != 3)
 	{
@@ -54,14 +54,9 @@ int	main(int ac, char **av)
 			57);
 		return (0);
 	}
-	if (!ft_isAlldigit(av[1]))
-	{
-		write(2, "invalid number\n", 15);
-		return (1);
-	}
 	pid_server = ft_atoi(av[1]);
 	str = av[2];
-	if (kill(pid_server, 0) == -1)
+	if (kill(pid_server, 0) == -1 || pid_server == -1)
 	{
 		write(2, "invalid pid server\n", 21);
 		exit(1);

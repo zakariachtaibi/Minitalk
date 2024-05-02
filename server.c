@@ -6,7 +6,7 @@
 /*   By: zchtaibi <zchtaibi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:15:23 by zchtaibi          #+#    #+#             */
-/*   Updated: 2024/04/28 16:49:24 by zchtaibi         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:02:32 by zchtaibi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,23 @@ void	handle_signal(int signum)
 		current_char <<= 1;
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	pid_t pid;
+	pid_t	pid;
 
-	pid = getpid();
-	write(1, "Server PID: ", 13);
-	ft_putnbr(pid);
-	ft_putchar('\n');
-	signal(SIGUSR1, handle_signal);
-	signal(SIGUSR2, handle_signal);
-	while (1)
-		pause();
+	(void)av;
+	if (ac == 1)
+	{
+		pid = getpid();
+		write(1, "Server PID: ", 13);
+		ft_putnbr(pid);
+		ft_putchar('\n');
+		signal(SIGUSR1, handle_signal);
+		signal(SIGUSR2, handle_signal);
+		while (1)
+			pause();
+	}
+	else
+		write(2, "Error\n", 6);
 	return (0);
 }

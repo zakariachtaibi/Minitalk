@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zchtaibi <zchtaibi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 20:15:14 by zchtaibi          #+#    #+#             */
-/*   Updated: 2024/05/01 16:58:53 by zchtaibi         ###   ########.fr       */
+/*   Created: 2024/05/01 20:05:30 by zchtaibi          #+#    #+#             */
+/*   Updated: 2024/05/01 20:09:22 by zchtaibi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# include <signal.h>
-# include <stdlib.h>
-# include <unistd.h>
+void sig_handler(int signum)
+{
+    if (signum == SIGINT)
+        write(1, "hello\n", 6);
+}
 
-int		ft_atoi(const char *nptr);
-void	ft_putchar(char c);
-void	ft_putnbr(int nb);
-
-#endif
+int main()
+{
+    if (signal(SIGINT, sig_handler) == SIG_ERR)
+        write(1, "error\n", 6);
+    while (1)
+        sleep(1);
+    return (0);
+}
